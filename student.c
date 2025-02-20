@@ -80,7 +80,7 @@ bool StudentRead(char *filename, Student **stu, int *numelem)
     // store the data to the array stuptr
     // fclose the file after read of data is done
     fgets(stuptr->ID, sizeof(stuptr->ID), fptr);
-    fgets(stuptr->name, sizeof(stuptr->name), fptr);
+    fgetc(stuptr->name, fptr);
 
     fclose(fptr);
     /* end of 1.3: allocate memory for the data */

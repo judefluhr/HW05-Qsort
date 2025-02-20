@@ -33,6 +33,11 @@ bool StudentRead(char *filename, Student **stu, int *numelem)
 {
     /* 1.1: open the file to read */
     FILE *fptr;
+    fptr = fopen(filename, "r");
+    if(fptr == NULL)
+    {
+        return false;
+    }
     // the name of the file to open is stored in filename
     // if fopen fails, return false
     // do not use fclose since fopen already fails
@@ -56,6 +61,12 @@ bool StudentRead(char *filename, Student **stu, int *numelem)
 
     /* 1.2 allocate memory for the data */
     Student *stuptr;
+    stuptr = malloc(sizeof(Student)* numline);
+    if (stuptr == NULL)
+    {
+        fclose(fptr);
+        return false;
+    }
     // stuptr is an array of type Student
     // refer to hw5.h to understand the type Student
     // the number of elements in this array is numline
@@ -68,7 +79,9 @@ bool StudentRead(char *filename, Student **stu, int *numelem)
     // read the data from the file
     // store the data to the array stuptr
     // fclose the file after read of data is done
+    fgets(stuptr, sizeof(stuptr), fptr);
 
+    fclose(fptr);
     /* end of 1.3: allocate memory for the data */
 
     *numelem = numline;
@@ -83,12 +96,23 @@ bool StudentWrite(char *filename, Student *stu, int numelem)
     // the name of file to open is stored in string filename
     // if fopen fails, return false
     // do not use fclose since fopen already fails
+    FILE * fptr;
+    fptr = fopen(filename, "w")
+    if(fptr == NULL)
+    {
+        return false;
+    }
     // stu is an array of type Student
     // refer to hw5.h to understand the type Student
     // the number of elements in array stu is numelem
     // write the data from array stu to the opened file
+    for (int i = 0; i < numelem; i++)
+    {
+        fprintf(fptr, "%d %s\n", stu->id, stu->name);
+    }
+    
     // fclose the file in the end
-
+    fclose(fptr);
     return true;
 }
 
@@ -98,6 +122,7 @@ void sortStudents(Student *stu, int numelem, int (*compar)(const void *, const v
     /* Fill in to call qsort function to sort array stu */
     // stu: an array of Students. numelem: number of elements in the array. compar: comparison function
     // refer to hw5.h to understand the type Student
+    qsort(&stu[0], numlem, sizeof(Student), compar);
 }
 
 /* This is the fourth function you need to implement */
@@ -107,16 +132,55 @@ int compareID(const void *p1, const void *p2)
     // return a negative value if the ID of the first student is smaller
     // return a positive value if the ID of the first student is larger
     // return zero if the IDs of the two students are the same
+    const int * ptr1 = (const int *) p1;
+    const int * ptr2 = (const int *) p2;
+
+    int id1 = * ptr1;
+    int id2 = * ptr2;
+
+    if(id1 > id2)
+    {
+        return 1;
+    }
+    else if (id1 < id2)
+    {
+        return -1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 /* This is the fifth function you need to implement */
 int compareName(const void *p1, const void *p2)
 {
+    const char * const * ptr1 = (const char **) p1;
+    const char * const * ptr2 = (const char **) p2;
+    
+    const char * name1 = *ptr1;
+    const char * name2 = *ptr2;
+
     /* Fill in to compare p1 and p2 by name */
     // use strcmp function to compare two strings
     // return a negative value if the name of the first student is alphabetically earlier
     // return a positive value if the name of the first student is alphabetically later
     // return zero if the names of the two students are the same
+    int alpha_value;
+    alpha_value = strcmp(name1, name2);
+    if(alpha_value < 0)
+    {
+        return -1;
+    }
+    else if (alpha_value > 0)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+
 }
 
 /* This is the sixth function you need to implement */
@@ -126,4 +190,12 @@ bool areStudentsSorted(Student *stu, int numelem, int (*compar)(const void *, co
     // return true if the stu array is sorted according to compar
     // return false otherwise
     // refer to hw5.h to understand the type Student
+    for(int i = 0; i < numelem - 1; i++)
+    {
+        if(compar(stu[i], stu[i+1]) > 0)
+        {
+            return false;
+        }
+    }
+    return true;
 }

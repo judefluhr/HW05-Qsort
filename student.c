@@ -194,11 +194,9 @@ bool areStudentsSorted(Student *stu, int numelem, int (*compar)(const void *, co
     {
         if(compar(&stu[i], &stu[i + 1]) > 0)
         {
-            free(stu);
             return false;
         }
     }
-    free(stu);
     return true;
 
 }

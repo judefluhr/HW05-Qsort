@@ -81,7 +81,7 @@ bool StudentRead(char *filename, Student **stu, int *numelem)
     // fclose the file after read of data is done
     for(int i = 0; i < numline; i++)
     {
-        fscanf(fptr, "%d %s", stuptr->ID, stuptr->name);
+        fscanf(fptr, "%d %s", &stuptr->ID, stuptr->name);
     }
     
 

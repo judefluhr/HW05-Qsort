@@ -79,7 +79,11 @@ bool StudentRead(char *filename, Student **stu, int *numelem)
     // read the data from the file
     // store the data to the array stuptr
     // fclose the file after read of data is done
-    fscanf(fptr, "%d %s", &stuptr->ID, stuptr->name);
+    for(int i = 0; i < numline, i++)
+    {
+        fscanf(fptr, "%d %s", &stuptr->ID, stuptr->name);
+    }
+    
 
     fclose(fptr);
     /* end of 1.3: allocate memory for the data */

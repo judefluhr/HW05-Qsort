@@ -146,10 +146,7 @@ int compareID(const void *p1, const void *p2)
     {
         return -1;
     }
-    else
-    {
-        return 0;
-    }
+    return 0;
 }
 
 /* This is the fifth function you need to implement */
@@ -176,11 +173,7 @@ int compareName(const void *p1, const void *p2)
     {
         return 1;
     }
-    else
-    {
-        return 0;
-    }
-
+    return 0;
 }
 
 /* This is the sixth function you need to implement */

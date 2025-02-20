@@ -79,7 +79,7 @@ bool StudentRead(char *filename, Student **stu, int *numelem)
     // read the data from the file
     // store the data to the array stuptr
     // fclose the file after read of data is done
-    fgets(stuptr, sizeof(stuptr), fptr);
+    fgets(*stuptr, sizeof(stuptr), fptr);
 
     fclose(fptr);
     /* end of 1.3: allocate memory for the data */
@@ -97,7 +97,7 @@ bool StudentWrite(char *filename, Student *stu, int numelem)
     // if fopen fails, return false
     // do not use fclose since fopen already fails
     FILE * fptr;
-    fptr = fopen(filename, "w")
+    fptr = fopen(filename, "w");
     if(fptr == NULL)
     {
         return false;
@@ -122,7 +122,7 @@ void sortStudents(Student *stu, int numelem, int (*compar)(const void *, const v
     /* Fill in to call qsort function to sort array stu */
     // stu: an array of Students. numelem: number of elements in the array. compar: comparison function
     // refer to hw5.h to understand the type Student
-    qsort(&stu[0], numlem, sizeof(Student), compar);
+    qsort(&stu[0], numelem, sizeof(Student), compar);
 }
 
 /* This is the fourth function you need to implement */
@@ -190,9 +190,9 @@ bool areStudentsSorted(Student *stu, int numelem, int (*compar)(const void *, co
     // return true if the stu array is sorted according to compar
     // return false otherwise
     // refer to hw5.h to understand the type Student
-    for(int i = 0; i < numelem - 1; i++)
+    for(int i = 0; i < numelem - 1, i++)
     {
-        if(compar(stu[i], stu[i+1]) > 0)
+        if(compar(&stu[i], &stu[i + 1]) > 0)
         {
             return false;
         }

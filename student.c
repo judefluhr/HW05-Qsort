@@ -79,7 +79,8 @@ bool StudentRead(char *filename, Student **stu, int *numelem)
     // read the data from the file
     // store the data to the array stuptr
     // fclose the file after read of data is done
-    fgets(&stuptr, sizeof(stuptr), fptr);
+    fgets(stuptr->ID, sizeof(stuptr->ID), fptr);
+    fgets(stuptr->name, sizeof(stuptr->name), fptr);
 
     fclose(fptr);
     /* end of 1.3: allocate memory for the data */
@@ -190,12 +191,15 @@ bool areStudentsSorted(Student *stu, int numelem, int (*compar)(const void *, co
     // return true if the stu array is sorted according to compar
     // return false otherwise
     // refer to hw5.h to understand the type Student
-    for(int i = 0; i < numelem - 1; i++)
+    for(int i = 0; i < (numelem - 1); i++)
     {
         if(compar(&stu[i], &stu[i + 1]) > 0)
         {
+            free(stu);
             return false;
         }
     }
+    free(stu);
     return true;
+
 }

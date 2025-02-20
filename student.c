@@ -136,17 +136,14 @@ int compareID(const void *p1, const void *p2)
     // return a negative value if the ID of the first student is smaller
     // return a positive value if the ID of the first student is larger
     // return zero if the IDs of the two students are the same
-    const int * ptr1 = (const int *) p1;
-    const int * ptr2 = (const int *) p2;
+    const Student * ptr1 = (const Student *) p1;
+    const Student * ptr2 = (const Student *) p2;
 
-    int id1 = * ptr1;
-    int id2 = * ptr2;
-
-    if(id1 > id2)
+    if(ptr1->ID > ptr2->ID)
     {
         return 1;
     }
-    else if (id1 < id2)
+    else if (ptr1->ID < ptr2->ID)
     {
         return -1;
     }
@@ -156,11 +153,8 @@ int compareID(const void *p1, const void *p2)
 /* This is the fifth function you need to implement */
 int compareName(const void *p1, const void *p2)
 {
-    const char * const * ptr1 = (const char **) p1;
-    const char * const * ptr2 = (const char **) p2;
-    
-    const char * name1 = *ptr1;
-    const char * name2 = *ptr2;
+    const Student * ptr1 = (const Student *) p1;
+    const Student * ptr2 = (const Student *) p2;
 
     /* Fill in to compare p1 and p2 by name */
     // use strcmp function to compare two strings
@@ -168,7 +162,7 @@ int compareName(const void *p1, const void *p2)
     // return a positive value if the name of the first student is alphabetically later
     // return zero if the names of the two students are the same
     int alpha_value;
-    alpha_value = strcmp(name1, name2);
+    alpha_value = strcmp(ptr1->name, ptr2->name);
     if(alpha_value < 0)
     {
         return -1;
@@ -195,5 +189,4 @@ bool areStudentsSorted(Student *stu, int numelem, int (*compar)(const void *, co
         }
     }
     return true;
-
 }

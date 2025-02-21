@@ -81,7 +81,7 @@ bool StudentRead(char *filename, Student **stu, int *numelem)
     // fclose the file after read of data is done
     for(int i = 0; i < numline; i++)
     {
-        fscanf(fptr, "%d %s", &stuptr->ID, stuptr->name);
+        fscanf(fptr, "%d %s", &stuptr[i].ID, stuptr[i].name);
     }
     
 
@@ -112,7 +112,7 @@ bool StudentWrite(char *filename, Student *stu, int numelem)
     // write the data from array stu to the opened file
     for (int i = 0; i < numelem; i++)
     {
-        fprintf(fptr, "%d %s\n", stu->ID, stu->name);
+        fprintf(fptr, "%d %s\n", stu[i].ID, stu[i].name);
     }
     
     // fclose the file in the end
